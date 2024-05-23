@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  web:
+    build: ./web
+    image: tripmeal-web
+    env_file:
+      - tripmeal.env
+    networks:
+      - backend
+    ports:
+      - "3000:5000" 
+  db:
+
+    build: ./database
+    image: mysql:5.7
+    
+    env_file:
+      - tripmeal.env
+    networks:
+      - backend
+    volumes:
+      - tripmeal-database:/var/lib/postgresql/data
+
+networks:
+  backend:
+
+volumes:
+  tripmeal-database:
